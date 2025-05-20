@@ -1,14 +1,17 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="https://github.com/avaloniaui"
-        xmlns:vm="clr-namespace:MatrixGuiApp.ViewModels"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        x:Class="MatrixGuiApp.Views.MainWindow"
-        Title="Обчислення оберненої матриці"
-        Width="600" Height="700"
-        mc:Ignorable="d">
 
-  <Design.DataContext>
+
+ <Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MatrixGuiApp.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MatrixGuiApp.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="MatrixGuiApp">
+
+    <Design.DataContext>
     <vm:MainWindowViewModel />
   </Design.DataContext>
 
@@ -20,7 +23,7 @@
     <TextBox Text="{Binding InputMatrix}" AcceptsReturn="True" Height="100" />
 
     <TextBlock Text="Метод:" />
-    <ComboBox Items="{Binding AvailableMethods}" SelectedItem="{Binding SelectedMethod}" />
+    <ComboBox ItemsSource="{Binding AvailableMethods}" SelectedItem="{Binding SelectedMethod}" />
 
     <Button Content="Обчислити" Command="{Binding SolveCommand}" />
 

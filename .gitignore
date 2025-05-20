@@ -1,3 +1,35 @@
 .vscode
 bin/
 obj/
+
+<!-- <Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="https://github.com/avaloniaui"
+        xmlns:vm="clr-namespace:MatrixGuiApp.ViewModels"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Class="MatrixGuiApp.Views.MainWindow"
+        Title="Обчислення оберненої матриці"
+        Width="600" Height="700"
+        mc:Ignorable="d">
+
+  <Design.DataContext>
+    <vm:MainWindowViewModel />
+  </Design.DataContext>
+
+  <StackPanel Margin="10" Spacing="10">
+    <TextBlock Text="Розмір матриці:" />
+    <TextBox Text="{Binding MatrixSize}" Width="100" />
+
+    <TextBlock Text="Введи матрицю (рядки через Enter):" />
+    <TextBox Text="{Binding InputMatrix}" AcceptsReturn="True" Height="100" />
+
+    <TextBlock Text="Метод:" />
+    <ComboBox Items="{Binding AvailableMethods}" SelectedItem="{Binding SelectedMethod}" />
+
+    <Button Content="Обчислити" Command="{Binding SolveCommand}" />
+
+    <TextBlock Text="Результат:" Margin="0,10,0,0" />
+    <TextBox Text="{Binding ResultText}" AcceptsReturn="True" Height="200" IsReadOnly="True" />
+  </StackPanel>
+</Window>
+ -->

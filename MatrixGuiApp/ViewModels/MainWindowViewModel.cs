@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Text;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace MatrixGuiApp.ViewModels;
 
@@ -20,7 +21,13 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private string selectedMethod = "Жордана-Гауса";
 
-    public string[] AvailableMethods => new[] { "Жордана-Гауса", "Шульца" };
+    public ObservableCollection<string> AvailableMethods { get; } = new()
+{
+    "Жордана-Гауса",
+    "Шульца"
+};
+
+    public string Greeting { get; } = "Welcome to Avalonia!";
 
     [RelayCommand]
     private void Solve()
