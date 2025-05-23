@@ -1,6 +1,4 @@
-
-
- <Window xmlns="https://github.com/avaloniaui"
+<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:MatrixGuiApp.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,22 +10,31 @@
         Title="MatrixGuiApp">
 
     <Design.DataContext>
-    <vm:MainWindowViewModel />
-  </Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
 
-  <StackPanel Margin="10" Spacing="10">
-    <TextBlock Text="Розмір матриці:" />
-    <TextBox Text="{Binding MatrixSize}" Width="100" />
+    <StackPanel Margin="10" Spacing="10">
+        <TextBlock Text="Розмір матриці:" />
+        <TextBox Text="{Binding MatrixSize}" Width="100" />
+        
+        <TextBlock Text="Введи матрицю (рядки через Enter):" />
+        <TextBox Text="{Binding InputMatrix}" AcceptsReturn="True" Height="100" 
+                 IsEnabled="{Binding GenerateMatrix, Converter={x:Static BoolConverters.Not}}"/>
 
-    <TextBlock Text="Введи матрицю (рядки через Enter):" />
-    <TextBox Text="{Binding InputMatrix}" AcceptsReturn="True" Height="100" />
+        <TextBlock Text="Метод:" />
+        <ComboBox ItemsSource="{Binding AvailableMethods}" SelectedItem="{Binding SelectedMethod}" />
+        <StackPanel Orientation="Horizontal" Spacing="10">
+    <Button Content="Згенерувати матрицю" Command="{Binding GenerateMatrixCommand}" />
+    <Button Content="Очистити" Command="{Binding ClearMatrixCommand}" />
+</StackPanel>
 
-    <TextBlock Text="Метод:" />
-    <ComboBox ItemsSource="{Binding AvailableMethods}" SelectedItem="{Binding SelectedMethod}" />
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <Button Content="Обчислити" Command="{Binding SolveCommand}" />
+            <Button Content="Зберегти результат" Command="{Binding SaveResultCommand}" />
+        </StackPanel>
+      
 
-    <Button Content="Обчислити" Command="{Binding SolveCommand}" />
-
-    <TextBlock Text="Результат:" Margin="0,10,0,0" />
-    <TextBox Text="{Binding ResultText}" AcceptsReturn="True" Height="200" IsReadOnly="True" />
-  </StackPanel>
+        <TextBlock Text="Результат:" Margin="0,10,0,0" />
+        <TextBox Text="{Binding ResultText}" AcceptsReturn="True" Height="200" IsReadOnly="True" />
+    </StackPanel>
 </Window>
