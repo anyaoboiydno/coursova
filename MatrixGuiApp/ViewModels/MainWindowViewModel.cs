@@ -98,7 +98,7 @@ public partial class MainWindowViewModel : ViewModelBase
         try
         {
             File.WriteAllText("./matrix_result.txt", ResultText);
-            ResultText += $"\n\nРезультат збережено у файл:\n{"./matrix_result.txt"}";
+            ResultText = $"Результат збережено у файл:\n{"./matrix_result.txt"}";
         }
         catch (Exception ex)
         {
