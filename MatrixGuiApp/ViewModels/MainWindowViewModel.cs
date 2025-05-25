@@ -128,7 +128,7 @@ public partial class MainWindowViewModel : ViewModelBase
                 {
                     double.Parse(parts[j]);
                 }
-                catch(Exception error) {
+                catch {
                     throw new Exception($"Елемент {parts[j]} повинен бути числом.");
                 };
                 value = double.Parse(parts[j]);
