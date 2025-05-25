@@ -97,7 +97,6 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            /* string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "matrix_result.txt"); */
             File.WriteAllText("./matrix_result.txt", ResultText);
             ResultText += $"\n\nРезультат збережено у файл:\n{"./matrix_result.txt"}";
         }
