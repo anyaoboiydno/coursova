@@ -123,9 +123,18 @@ public partial class MainWindowViewModel : ViewModelBase
                 throw new Exception($"Рядок {i + 1} має не {size} елементів.");
             for (int j = 0; j < size; j++)
             {
-                double value = double.Parse(parts[j]);
+                double value = 0;
+                try
+                {
+                    double.Parse(parts[j]);
+                }
+                catch(Exception error) {
+                    throw new Exception($"Елемент {parts[j]} повинен бути числом.");
+                };
+                value = double.Parse(parts[j]);
+                
                 if ((Math.Abs(value) < MinValue && value != 0) || Math.Abs(value) > MaxValue)
-                 throw new Exception($"Елементи повинні бути по модулю в межах від {MinValue} до {MaxValue}, або рівні 0.");
+                    throw new Exception($"Елементи повинні бути по модулю в межах від {MinValue} до {MaxValue}, або рівні 0.");
 
                 matrix[i, j] = value;
             }
@@ -212,7 +221,6 @@ public partial class MainWindowViewModel : ViewModelBase
 
         for (int i = 0; i < n; i++)
         {
-            // Pivoting
             int maxRow = i;
             for (int k = i + 1; k < n; k++)
             {
