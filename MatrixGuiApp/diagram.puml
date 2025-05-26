@@ -1,0 +1,70 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+
+
+class App {
+    + Initialize(): void
+    + OnFrameworkInitializationCompleted(): void
+    - DisableAvaloniaDataAnnotationValidation(): void
+}
+
+class ViewLocator {
+    + Build(param: object): Control
+    + Match(data: object): bool
+}
+
+class ViewModelBase {
+}
+
+class MainWindowViewModel {
+    + MatrixSize: string
+    + InputMatrix: string
+    + ResultText: string
+    + SelectedMethod: string
+    + AvailableMethods: ObservableCollection<string>
+    
+    + SolveCommand: ICommand
+    + GenerateMatrixCommand: ICommand
+    + ClearMatrixCommand: ICommand
+    + SaveResultCommand: ICommand
+
+    + GenerateMatrix(): void
+    + ClearMatrix(): void
+    
+    - Solve(): void
+    - SaveResult(): void
+}
+
+class MatrixService {
+    + GenerateRandomMatrix(size: int): string
+    + ParseMatrix(text: string, size: int): double[,]
+}
+
+class MatrixFormatter {
+    + ToString(matrix: double[,]): string
+}
+
+class MatrixInverter {
+    + InvertByJordanGauss(mat: double[,]): (double[,], string)
+    + InvertBySchulz(A: double[,]): (double[,], string)
+    
+    - Multiply(A: double[,], B: double[,], ref count: int): double[,]
+    - Subtract(A: double[,], B: double[,], ref count: int): double[,]
+    - Add(A: double[,], B: double[,], ref count: int): double[,]
+}
+
+ViewModelBase <|-- MainWindowViewModel
+
+App --> MainWindowViewModel
+ViewLocator --> ViewModelBase
+MainWindowViewModel --> MatrixService : uses
+MainWindowViewModel ..> MatrixFormatter : uses
+MainWindowViewModel ..> MatrixInverter : uses
+
+@enduml
