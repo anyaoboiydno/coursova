@@ -131,9 +131,69 @@ namespace MatrixGuiApp.ViewModels
                 }
             }
 
+            try {
+                double determinant = DeterminantCalculator.Determinant(matrix);
+                if (Math.Abs(determinant) < 1e-8)
+                    throw new Exception("Матриця є сингулярною (визначник дорівнює 0).");
+            }
+            catch (Exception ex) {
+                throw new Exception("Матриця є сингулярною (визначник дорівнює 0).");
+            }
+
             return matrix;
         }
     }
+
+    public static class DeterminantCalculator
+    {
+        public static double Determinant(double[,] matrix)
+        {
+        int n = matrix.GetLength(0);
+
+        if (n != matrix.GetLength(1))
+            throw new ArgumentException("Матриця повинна бути квадратною.");
+
+        if (n == 1)
+            return matrix[0, 0];
+
+        if (n == 2)
+            return matrix[0,0] * matrix[1,1] - matrix[0,1] * matrix[1,0];
+
+        double det = 0;
+
+        for (int col = 0; col < n; col++)
+        {
+            double[,] minor = GetMinor(matrix, 0, col);
+            double cofactor = Math.Pow(-1, col) * matrix[0, col];
+            det += cofactor * Determinant(minor);
+        }
+
+        return det;
+    }
+
+    private static double[,] GetMinor(double[,] matrix, int rowToRemove, int colToRemove)
+    {
+        int n = matrix.GetLength(0);
+        double[,] minor = new double[n - 1, n - 1];
+
+        int r = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (i == rowToRemove) continue;
+            int c = 0;
+            for (int j = 0; j < n; j++)
+            {
+                if (j == colToRemove) continue;
+                minor[r, c] = matrix[i, j];
+                c++;
+            }
+            r++;
+        }
+
+            return minor;
+        }
+    }
+
 
     public static class MatrixFormatter
     {
@@ -191,7 +251,6 @@ namespace MatrixGuiApp.ViewModels
                 }
 
                 double diag = temp[i, i];
-                iterationCount++;
                 if (Math.Abs(diag) < 1e-12)
                     throw new Exception("Неможливо інвертувати: нуль або майже нуль на головній діагоналі.");
 
@@ -212,7 +271,6 @@ namespace MatrixGuiApp.ViewModels
                         result[k, j] -= factor * result[i, j];
                         iterationCount += 2;
                     }
-                    iterationCount++;
                 }
             }
 
